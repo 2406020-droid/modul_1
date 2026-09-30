@@ -8,6 +8,7 @@ proyek, lalu tuliskan teks berikut:
 - **NIM:** 2406020
 - **Kelas/Prodi:** Teknik Informatika - ITG
 - **Kode MK:** IFRWP5151
+- **Komunitas:** HIMAKOS
 
 ---
 
