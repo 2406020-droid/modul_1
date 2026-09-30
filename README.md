@@ -26,3 +26,5 @@ proyek, lalu tuliskan teks berikut:
 - System Manufacturer: Acer
 - System Model: Aspire A514-56P
 - Processor: 13th Gen Intel(R) Core(TM) i5-1335U (12 CPUs), ~1.3GHz
+- NodeJS Version: v24.16.0
+- Git Version: 2.51.0.windows.1
