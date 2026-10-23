@@ -29,11 +29,9 @@ const projects = [
   },
 ];
 
-// Menentukan kategori dan kata pencarian yang aktif
 let selectedCategory = "Semua";
 let searchKeyword = "";
 
-// Format angka menjadi mata uang Rupiah
 const formatRupiah = (angka) => {
   return new Intl.NumberFormat("id-ID", {
     style: "currency",
@@ -42,7 +40,6 @@ const formatRupiah = (angka) => {
   }).format(angka);
 };
 
-// Mengamankan teks sebelum dimasukkan ke HTML
 const escapeHTML = (text) => {
   return String(text).replace(/[&<>"']/g, (char) => {
     const entities = {
@@ -57,7 +54,6 @@ const escapeHTML = (text) => {
   });
 };
 
-// Memperbarui statistik seluruh proyek
 const updateStats = () => {
   const totalProjects = projects.length;
 
@@ -77,7 +73,6 @@ const updateStats = () => {
     completedCount;
 };
 
-// Menggabungkan pencarian dan filter kategori
 const getFilteredProjects = () => {
   return projects.filter((project) => {
     const matchesCategory =
@@ -91,7 +86,6 @@ const getFilteredProjects = () => {
   });
 };
 
-// Menampilkan daftar proyek pada halaman
 const renderProjects = () => {
   const container = document.getElementById("project-list");
   const filteredProjects = getFilteredProjects();
@@ -158,13 +152,11 @@ const renderProjects = () => {
     .join("");
 };
 
-// Menyegarkan daftar proyek dan statistik
 const refreshDashboard = () => {
   renderProjects();
   updateStats();
 };
 
-// Menjalankan program setelah HTML selesai dimuat
 document.addEventListener("DOMContentLoaded", () => {
   const projectForm = document.getElementById("project-form");
   const titleInput = document.getElementById("project-title");
@@ -175,7 +167,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const filterButtons = document.querySelectorAll(".btn-filter");
   const projectList = document.getElementById("project-list");
 
-  // 1. Formulir untuk menambahkan proyek
   projectForm.addEventListener("submit", (event) => {
     event.preventDefault();
 
@@ -184,7 +175,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const budget = Number(budgetInput.value);
     const completed = completedInput.checked;
 
-    // Validasi data proyek
     if (!title) {
       alert("Judul proyek wajib diisi.");
       titleInput.focus();
@@ -208,7 +198,6 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    // Membuat ID baru yang tidak sama dengan ID proyek lain
     const newId =
       projects.length > 0
         ? Math.max(...projects.map((project) => project.id)) + 1
@@ -222,10 +211,8 @@ document.addEventListener("DOMContentLoaded", () => {
       completed: completed,
     };
 
-    // Menambahkan proyek ke array
     projects.push(newProject);
 
-    // Menampilkan proyek yang baru ditambahkan
     selectedCategory = "Semua";
     searchKeyword = "";
     searchInput.value = "";
@@ -240,13 +227,11 @@ document.addEventListener("DOMContentLoaded", () => {
     alert("Proyek berhasil ditambahkan!");
   });
 
-  // 2. Pencarian proyek secara real-time
   searchInput.addEventListener("input", () => {
     searchKeyword = searchInput.value.trim();
     renderProjects();
   });
 
-  // Filter kategori tetap bisa digunakan bersama pencarian
   filterButtons.forEach((button) => {
     button.addEventListener("click", () => {
       selectedCategory = button.dataset.category;
@@ -259,7 +244,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // 3. Aksi tombol pada kartu proyek
   projectList.addEventListener("click", (event) => {
     const button = event.target.closest("button[data-action]");
 
@@ -272,13 +256,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (!project) return;
 
-    // Mengubah status proyek
     if (action === "toggle") {
       project.completed = !project.completed;
       refreshDashboard();
     }
 
-    // Menghapus proyek
     if (action === "delete") {
       const confirmed = confirm(
         `Apakah Anda yakin ingin menghapus proyek "${project.title}"?`,
@@ -295,6 +277,5 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Menampilkan data awal saat halaman dibuka
   refreshDashboard();
 });
